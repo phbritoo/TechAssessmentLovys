@@ -17,21 +17,33 @@ export class MoviesApiService {
 
   constructor(private http: HttpClient) {}
 
-  getLatestReleases(page: number): Observable<Movie[]> {
+  getTopRated(page: number): Observable<Movie[]> {
     return this.http
       .get<any[]>(
-        `${this.baseUrl}/discover/movie${this.key}&sort_by=release_date.desc&primary_release_date.lte=2020-12-30&include_adult=false&include_video=false&page=${page}`
+        `${this.baseUrl}/movie/top_rated${this.key}&language=en-US&page=${page}`
       )
       .pipe(
         tap((_) => console.log('fetched trending')),
-        catchError(this.handleError<any[]>('getLatestReleases', []))
+        catchError(this.handleError<any[]>('getTopRated', []))
       );
   }
+
+  getUpcoming(page: number): Observable<Movie[]> {
+    return this.http
+      .get<any[]>(
+        `${this.baseUrl}/movie/upcoming${this.key}&language=en-US&page=${page}`
+      )
+      .pipe(
+        tap((_) => console.log('fetched trending')),
+        catchError(this.handleError<any[]>('getTopRated', []))
+      );
+  }
+
   getTrending(page: number): Observable<Movie[]> {
     console.log(`getTrending page: ${page}`);
     return this.http
       .get<Movie[]>(
-        `${this.baseUrl}/trending/movie/week${this.key}&page=${page}`
+        `${this.baseUrl}/trending/movie/week${this.key}&language=en-US&page=${page}`
       )
       .pipe(
         tap((_) => console.log('fetched trending')),
@@ -43,7 +55,9 @@ export class MoviesApiService {
     console.log(`getPopular page: ${page}`);
 
     return this.http
-      .get<Movie[]>(`${this.baseUrl}/movie/popular${this.key}&page=${page}`)
+      .get<Movie[]>(
+        `${this.baseUrl}/movie/popular${this.key}&language=en-US&page=${page}`
+      )
       .pipe(
         tap((_) => console.log('fetched popular')),
         catchError(this.handleError<Movie[]>('getPopular', []))
@@ -84,12 +98,38 @@ export class MoviesApiService {
       );
   }
 
+  getGenres(): Observable<any> {
+    return this.http
+      .get<any>(`${this.baseUrl}/genre/movie/list${this.key}&language=en-US`)
+      .pipe(
+        tap((_) => console.log('fetched popular')),
+        catchError(this.handleError<any>('getGenres', []))
+      );
+  }
+
+  getGenreById(id?: number, page?: number): Observable<any> {
+    return this.http
+      .get<any>(
+        `${this.baseUrl}/genre/${id}/movies${this.key}&language=en-US`
+      )
+      .pipe(
+        tap((_) => console.log('fetched popular')),
+        catchError(this.handleError<any>('getGenreById', []))
+      );
+  }
+
+  searchMovies(searchStr: string): Observable<any> {
+    return this.http.get(
+      `${this.baseUrl}/search/movie${this.key}&query=${searchStr}`
+    );
+  }
+
   searchMulti(term: string): Observable<any> {
     if (!term.trim()) {
       return of([]);
     }
     return this.http
-      .get<any>(`${this.baseUrl}/search/multi/${this.key}&query=${term}`)
+      .get<any>(`${this.baseUrl}/search/movie${this.key}&query=${term}`)
       .pipe(
         tap((x: any) =>
           x.length

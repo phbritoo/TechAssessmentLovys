@@ -10,6 +10,7 @@ import { FirebaseService } from './service/firebase.service';
 export class AppComponent implements OnInit {
   title = 'TechAssessmentLovys';
   isSignedIn = false;
+  closedModal = false;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -25,16 +26,20 @@ export class AppComponent implements OnInit {
 
   async onSignup(email: string, password: string) {
     await this.firebaseService.signup(email, password);
-    if (this.firebaseService.isLoggedIn) this.isSignedIn = true;
+    if (this.firebaseService.isLoggedIn) {
+      this.isSignedIn = true;
+      alert('Registration Successful!');
+    }
   }
 
   async onSignin(email: string, password: string) {
     await this.firebaseService.signin(email, password);
-    if (this.firebaseService.isLoggedIn) this.isSignedIn = true;
+    if (this.firebaseService.isLoggedIn) {
+      this.isSignedIn = true;
+    }
   }
 
-  handleLogout(){
+  handleLogout() {
     this.isSignedIn = false;
-    
   }
 }

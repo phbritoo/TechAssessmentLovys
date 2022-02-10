@@ -3,14 +3,15 @@ import { ActivatedRoute } from '@angular/router';
 import { Genres } from 'src/app/modules/genres.model';
 import { Movie } from 'src/app/modules/movie.model';
 import { MoviesApiService } from 'src/app/service/movies-api.service';
+import { TvService } from 'src/app/service/tv.service';
 
 @Component({
-  selector: 'app-movie-trending',
-  templateUrl: './movie-trending.component.html',
-  styleUrls: ['./movie-trending.component.scss'],
+  selector: 'app-tv-top',
+  templateUrl: './tv-top.component.html',
+  styleUrls: ['./tv-top.component.scss'],
 })
-export class MovieTrendingComponent implements OnInit {
-  trending: Movie[] = [];
+export class TvTopComponent implements OnInit {
+  topRated: Movie[] = [];
   genres: Genres[] = [];
   details = {
     id: 0,
@@ -24,25 +25,26 @@ export class MovieTrendingComponent implements OnInit {
   page: any;
   totalPages: any;
   constructor(
-    private apiService: MoviesApiService,
+    private apiTvService: TvService,
+    private apiMovieService: MoviesApiService,
     private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
     this.page = this.route.snapshot.paramMap.get('page');
-    this.getTrending(this.page);
+    this.getTopRated(this.page);
   }
 
-  getTrending(page: number): void {
-    this.apiService.getTrending(page).subscribe((trending: any) => {
-      this.trending = trending['results'];
-      this.page = trending['page'];
-      this.totalPages = trending['total_pages'];
+  getTopRated(page: number): void {
+    this.apiTvService.getTopRated(page).subscribe((topRated: any) => {
+      this.topRated = topRated['results'];
+      this.page = topRated['page'];
+      this.totalPages = topRated['total_pages'];
     });
   }
 
   getMovieById(id: number): void {
-    this.apiService.getMovieDetails(id).subscribe((res: any) => {
+    this.apiMovieService.getMovieDetails(id).subscribe((res: any) => {
       this.genres = res['genres'];
       this.details = res;
     });

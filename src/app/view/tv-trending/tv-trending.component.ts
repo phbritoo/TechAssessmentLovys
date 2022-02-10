@@ -3,13 +3,14 @@ import { ActivatedRoute } from '@angular/router';
 import { Genres } from 'src/app/modules/genres.model';
 import { Movie } from 'src/app/modules/movie.model';
 import { MoviesApiService } from 'src/app/service/movies-api.service';
+import { TvService } from 'src/app/service/tv.service';
 
 @Component({
-  selector: 'app-movie-trending',
-  templateUrl: './movie-trending.component.html',
-  styleUrls: ['./movie-trending.component.scss'],
+  selector: 'app-tv-trending',
+  templateUrl: './tv-trending.component.html',
+  styleUrls: ['./tv-trending.component.scss']
 })
-export class MovieTrendingComponent implements OnInit {
+export class TvTrendingComponent implements OnInit {
   trending: Movie[] = [];
   genres: Genres[] = [];
   details = {
@@ -24,7 +25,8 @@ export class MovieTrendingComponent implements OnInit {
   page: any;
   totalPages: any;
   constructor(
-    private apiService: MoviesApiService,
+    private apiTvService: TvService,
+    private apiMovieService: MoviesApiService,
     private route: ActivatedRoute
   ) {}
 
@@ -34,7 +36,7 @@ export class MovieTrendingComponent implements OnInit {
   }
 
   getTrending(page: number): void {
-    this.apiService.getTrending(page).subscribe((trending: any) => {
+    this.apiTvService.getTrending(page).subscribe((trending: any) => {
       this.trending = trending['results'];
       this.page = trending['page'];
       this.totalPages = trending['total_pages'];
@@ -42,7 +44,7 @@ export class MovieTrendingComponent implements OnInit {
   }
 
   getMovieById(id: number): void {
-    this.apiService.getMovieDetails(id).subscribe((res: any) => {
+    this.apiMovieService.getMovieDetails(id).subscribe((res: any) => {
       this.genres = res['genres'];
       this.details = res;
     });

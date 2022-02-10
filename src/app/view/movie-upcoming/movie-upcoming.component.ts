@@ -5,12 +5,12 @@ import { Movie } from 'src/app/modules/movie.model';
 import { MoviesApiService } from 'src/app/service/movies-api.service';
 
 @Component({
-  selector: 'app-movie-trending',
-  templateUrl: './movie-trending.component.html',
-  styleUrls: ['./movie-trending.component.scss'],
+  selector: 'app-movie-upcoming',
+  templateUrl: './movie-upcoming.component.html',
+  styleUrls: ['./movie-upcoming.component.scss'],
 })
-export class MovieTrendingComponent implements OnInit {
-  trending: Movie[] = [];
+export class MovieUpcomingComponent implements OnInit {
+  upcoming: Movie[] = [];
   genres: Genres[] = [];
   details = {
     id: 0,
@@ -30,14 +30,14 @@ export class MovieTrendingComponent implements OnInit {
 
   ngOnInit(): void {
     this.page = this.route.snapshot.paramMap.get('page');
-    this.getTrending(this.page);
+    this.getUpcoming(this.page);
   }
 
-  getTrending(page: number): void {
-    this.apiService.getTrending(page).subscribe((trending: any) => {
-      this.trending = trending['results'];
-      this.page = trending['page'];
-      this.totalPages = trending['total_pages'];
+  getUpcoming(page: number): void {
+    this.apiService.getUpcoming(page).subscribe((upcoming: any) => {
+      this.upcoming = upcoming['results'];
+      this.page = upcoming['page'];
+      this.totalPages = upcoming['total_pages'];
     });
   }
 

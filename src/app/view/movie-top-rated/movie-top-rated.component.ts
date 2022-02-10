@@ -5,12 +5,12 @@ import { Movie } from 'src/app/modules/movie.model';
 import { MoviesApiService } from 'src/app/service/movies-api.service';
 
 @Component({
-  selector: 'app-movie-trending',
-  templateUrl: './movie-trending.component.html',
-  styleUrls: ['./movie-trending.component.scss'],
+  selector: 'app-movie-top-rated',
+  templateUrl: './movie-top-rated.component.html',
+  styleUrls: ['./movie-top-rated.component.scss'],
 })
-export class MovieTrendingComponent implements OnInit {
-  trending: Movie[] = [];
+export class MovieTopRatedComponent implements OnInit {
+  topRated: Movie[] = [];
   genres: Genres[] = [];
   details = {
     id: 0,
@@ -30,14 +30,14 @@ export class MovieTrendingComponent implements OnInit {
 
   ngOnInit(): void {
     this.page = this.route.snapshot.paramMap.get('page');
-    this.getTrending(this.page);
+    this.getTopRated(this.page);
   }
 
-  getTrending(page: number): void {
-    this.apiService.getTrending(page).subscribe((trending: any) => {
-      this.trending = trending['results'];
-      this.page = trending['page'];
-      this.totalPages = trending['total_pages'];
+  getTopRated(page: number): void {
+    this.apiService.getTopRated(page).subscribe((topRated: any) => {
+      this.topRated = topRated['results'];
+      this.page = topRated['page'];
+      this.totalPages = topRated['total_pages'];
     });
   }
 
@@ -47,4 +47,5 @@ export class MovieTrendingComponent implements OnInit {
       this.details = res;
     });
   }
+
 }
