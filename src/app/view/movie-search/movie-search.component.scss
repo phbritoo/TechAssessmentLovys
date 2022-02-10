@@ -1,0 +1,36 @@
+.container{
+    margin-top: 2rem;
+}
+img{
+    cursor: pointer;
+}
+.chip{
+    padding: 10px 10px 10px 10px;
+    font-size: 12px;
+    margin: 2px;
+}
+p{
+    font-variant-caps: small-caps;
+    text-align: justify;
+    font-size: 13px;
+    
+}
+.search{
+    width: 60%;
+}
+.searchdesign{
+    height: 50px;
+    // width: 50%;
+    // background: #ffffff;
+    border: 2px solid #0a0a0a;
+    // color: #fff;
+    font-size: 15px;
+}
+
+.btnDesign{
+    height: 50px;
+    border-radius: 0;
+    width: 55px;
+    background: #646464;
+    border: #030303;
+}
