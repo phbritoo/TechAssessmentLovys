@@ -20,11 +20,7 @@ import { TvTrendingComponent } from './view/tv-trending/tv-trending.component';
 import { TvTopComponent } from './view/tv-top/tv-top.component';
 import { GenresListComponent } from './view/genres-list/genres-list.component';
 import { GenresComponent } from './components/genres/genres.component';
-import { AddTutorialComponent } from './components/add-tutorial/add-tutorial.component';
-import { TutorialDetailsComponent } from './components/tutorial-details/tutorial-details.component';
-import { TutorialsListComponent } from './components/tutorials-list/tutorials-list.component';
 import { MovieDetailsComponent } from './components/movie-details/movie-details.component';
-import { MovieFavoriteComponent } from './view/movie-favorite/movie-favorite.component';
 
 @NgModule({
   declarations: [
@@ -39,11 +35,7 @@ import { MovieFavoriteComponent } from './view/movie-favorite/movie-favorite.com
     TvTopComponent,
     GenresListComponent,
     GenresComponent,
-    AddTutorialComponent,
-    TutorialDetailsComponent,
-    TutorialsListComponent,
     MovieDetailsComponent,
-    MovieFavoriteComponent,
   ],
   imports: [
     BrowserModule,
