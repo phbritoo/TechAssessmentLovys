@@ -37,7 +37,7 @@ export class MovieNavBarComponent implements OnInit {
       });
   }
 
-  // getMovieById(id: number): void {
+  //getMovieById(id?: any): void {
   //   this.apiService.getMovieDetails(id).subscribe((res: any) => {
   //     this.genres = res['genres'];
   //     this.details = res;

@@ -6,21 +6,22 @@
                     alt="Sample image">
             </div>
             <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-                <form>
+                <form [formGroup]="signinForm">
                     <div class="divider d-flex align-items-center my-4">
                         <p class="text-center fw-bold mx-3 mb-0">Welcome!</p>
                     </div>
-                    <div class="form-outline mb-4">
-                        <input type="email" #email id="form3Example3" aria-describedby="passwordHelpInline" required
-                            class="form-control form-control-lg" placeholder="Enter a valid email address" />
-
+                    <div class="form-group">
+                        <input type="text" formControlName="email" placeholder="Enter a valid email address"
+                            class="form-control form-control-lg">
+                        <small *ngIf="email?.invalid && email?.touched" class="text-danger">E-mail is required</small>
                     </div>
-
-                    <div class="form-outline mb-3">
-                        <input type="password" #password required class="form-control form-control-lg"
-                            placeholder="Enter password" />
+                    <div class="form-group">
+                        <input type="password" formControlName="password" placeholder="Enter a password"
+                            class="form-control form-control-lg">
+                        <small *ngIf="password?.invalid && password?.touched" class="text-danger">
+                            Password is required!
+                        </small>
                     </div>
-
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="form-check mb-0">
                             <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3" />
@@ -30,8 +31,8 @@
                         </div>
                     </div>
                     <div class="text-center text-lg-start mt-4 pt-2">
-                        <button type="submit" class="btn btn-dark" style="padding-left: 2.5rem; padding-right: 2.5rem;"
-                            (click)="onSignin(email.value, password.value)">Sign in</button>
+                        <button type="button" [disabled]="signinForm.invalid" class="btn btn-dark"
+                            style="padding-left: 2.5rem; padding-right: 2.5rem;" (click)="onSignin()">Sign in</button>
                         <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a data-bs-toggle="modal"
                                 data-bs-target="#exampleModal" class="text-danger">Register</a></p>
                     </div>
@@ -50,23 +51,26 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form [formGroup]="signupForm">
                         <div class="form-outline mb-4">
-                            <input type="email" #emailSignup id="form3Example3" required
-                                class="form-control form-control-lg" placeholder="Enter a valid email address" />
+                            <input type="text" formControlName="emailSignup" placeholder="Enter a valid email address"
+                                class="form-control form-control-lg">
+                            <small *ngIf="emailSignup?.touched" id="passwordHelpInline" class="text-danger">E-mail is
+                                required</small>
                         </div>
-
                         <div class="form-outline mb-3">
-                            <input type="password" required #passwordSignup class="form-control form-control-lg"
-                                placeholder="Enter password" />
+                            <input type="password" formControlName="passwordSignup" placeholder="Enter a password"
+                                class="form-control form-control-lg">
                             <small id="passwordHelpInline" class="text-muted">
                                 Must be 8-20 characters long.
                             </small>
                         </div>
                         <div class="text-center text-lg-start mt-4 pt-2">
-                            <button type="button" class="btn btn-dark" data-bs-dismiss="modal"
-                                style="padding-left: 2.5rem; padding-right: 2.5rem;"
-                                (click)="onSignup(emailSignup.value, passwordSignup.value)"> Sign up</button>
+                            <button type="button" [disabled]="signupForm.invalid" class="btn btn-dark"
+                                data-bs-dismiss="modal" style="padding-left: 2.5rem; padding-right: 2.5rem;"
+                                (click)="onSignup()">
+                                Sign up
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -74,5 +78,4 @@
         </div>
     </div>
 </section>
-
 <app-movie-nav-bar *ngIf="isSignedIn" (isLogout)="handleLogout()"></app-movie-nav-bar>

@@ -41,7 +41,7 @@ export class MovieSearchComponent implements OnInit {
     this.page = this.route.snapshot.paramMap.get('page');
   }
 
-  getMovieById(id: number): void {
+  getMovieById(id?: any): void {
     this.apiService.getMovieDetails(id).subscribe((res: any) => {
       this.genres = res['genres'];
       this.details = res;
@@ -51,13 +51,11 @@ export class MovieSearchComponent implements OnInit {
   searchMovies() {
     this.apiService.searchMovies(this.searchStr).subscribe((res) => {
       this.searchRes = res['results'];
-      console.log('REST', this.searchRes);
       if (this.searchRes.length === 0) {
         this.searchEmpty = true;
       } else {
         this.searchEmpty = false;
       }
-      console.log(this.searchEmpty);
     });
   }
 }
