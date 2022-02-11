@@ -1,0 +1,11 @@
+<div class="container">
+    <div class="text-center">
+        <div class="genres">
+            <a *ngFor="let genre of genreslist" routerLink="/genres/{{genre.id}}/{{genre.name}}">
+                <button type="button" class="btn btn-outline-dark btn-sm">
+                    {{genre.name}}
+                </button>
+            </a>
+        </div>
+    </div>
+</div>

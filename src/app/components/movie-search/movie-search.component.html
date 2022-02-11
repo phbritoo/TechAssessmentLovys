@@ -1,0 +1,58 @@
+<div>
+    <div class="container">
+        <form>
+            <div class="row">
+                <div class="d-flex justify-content-center">
+                    <div class="input-group search">
+                        <input type="search" class="form-control searchdesign" placeholder="Search for movies..."
+                            [(ngModel)]="searchStr" name="searchStr" (keyup.enter)="searchMovies()">
+                        <span class="input-group-btn">
+                            <button class="btn btn-dark btnDesign" type="button" (click)="searchMovies()">Go!</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <hr>
+
+        <div class="row" *ngIf="searchEmpty">
+            <div class="d-flex justify-content-center">
+                <span>No results found
+                </span>
+            </div>
+        </div>
+
+        <div class="row" *ngIf="searchRes">
+            <div class="col-4 col-md-4 col-lg-3 my-3 px-2 px-md-4" *ngFor="let item of searchRes | slice:0:18">
+                <div *ngIf="item.poster_path !== null">
+                    <a class="view overlay zoom" (click)="getMovieById(item.id)" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal">
+                        <img class="poster-img hoverable" src="https://image.tmdb.org/t/p/w400/{{ item.poster_path }}"
+                            title="{{ item.title }}" alt="{{ item.title }}" />
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+            *ngIf="details">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title title h4-responsive  px-3">{{details.title}}</h4>
+                        <span class="badge rounded-pill bg-dark chip">
+                            <i class="fas fa-solid fa-star px-1"></i>{{details.vote_average}}</span>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>{{details.overview}}</p>
+                        <hr>
+                        <div class="d-flex justify-content-center">
+                            <span class="badge rounded-pill bg-dark chip"
+                                *ngFor="let genre of genres">{{genre.name}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
