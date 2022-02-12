@@ -13,6 +13,7 @@ export class MovieNavBarComponent implements OnInit {
   @Output() isLogout = new EventEmitter<void>();
 
   genreslist: any;
+  public loading = false;
 
   constructor(
     private apiService: MoviesApiService,
@@ -24,23 +25,15 @@ export class MovieNavBarComponent implements OnInit {
     this.getGenres();
   }
   logout() {
+    this.loading = true;
     this.firebaseService.logout();
+    this.loading = false;
     this.isLogout.emit();
   }
 
   getGenres() {
-    this.apiService
-      .getGenres()
-      .pipe(delay(1000))
-      .subscribe((res: any) => {
-        this.genreslist = res.genres;
-      });
+    this.apiService.getGenres().subscribe((res: any) => {
+      this.genreslist = res.genres;
+    });
   }
-
-  //getMovieById(id?: any): void {
-  //   this.apiService.getMovieDetails(id).subscribe((res: any) => {
-  //     this.genres = res['genres'];
-  //     this.details = res;
-  //   });
-  // }
 }
