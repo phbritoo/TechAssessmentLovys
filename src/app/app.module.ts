@@ -21,6 +21,7 @@ import { TvTopComponent } from './view/tv-top/tv-top.component';
 import { GenresListComponent } from './view/genres-list/genres-list.component';
 import { GenresComponent } from './components/genres/genres.component';
 import { MovieDetailsComponent } from './components/movie-details/movie-details.component';
+import { ngxLoadingAnimationTypes, NgxLoadingModule } from 'ngx-loading';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,14 @@ import { MovieDetailsComponent } from './components/movie-details/movie-details.
     FormsModule,
     AngularFireDatabaseModule,
     ReactiveFormsModule,
+    NgxLoadingModule.forRoot({
+      animationType: ngxLoadingAnimationTypes.rectangleBounce,
+      backdropBackgroundColour: 'rgba(255,255,255,0.5)',
+      backdropBorderRadius: '10px',
+      primaryColour: '#000000',
+      secondaryColour: '#000000',
+      tertiaryColour: '#000000',
+    }),
   ],
   providers: [FirebaseService],
   bootstrap: [AppComponent],

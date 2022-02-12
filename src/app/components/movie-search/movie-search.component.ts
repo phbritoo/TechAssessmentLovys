@@ -1,12 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import {
-  debounceTime,
-  distinctUntilChanged,
-  Observable,
-  Subject,
-  switchMap,
-} from 'rxjs';
 import { Genres } from 'src/app/modules/genres.model';
 import { Movie } from 'src/app/modules/movie.model';
 import { MoviesApiService } from 'src/app/service/movies-api.service';
@@ -17,21 +11,13 @@ import { MoviesApiService } from 'src/app/service/movies-api.service';
   styleUrls: ['./movie-search.component.scss'],
 })
 export class MovieSearchComponent implements OnInit {
-  popular: Movie[] = [];
-  genres: Genres[] = [];
-  details = {
-    id: 0,
-    title: '',
-    overview: '',
-    budget: 0,
-    vote_average: 0,
-  };
   searchStr: any;
   searchRes: any[] = [];
   page: any;
   totalPages: any;
-  genreslist: any;
   searchEmpty: boolean = false;
+  public loading = false;
+
   constructor(
     private apiService: MoviesApiService,
     private route: ActivatedRoute
@@ -40,21 +26,19 @@ export class MovieSearchComponent implements OnInit {
   ngOnInit(): void {
     this.page = this.route.snapshot.paramMap.get('page');
   }
-
-  getMovieById(id?: any): void {
-    this.apiService.getMovieDetails(id).subscribe((res: any) => {
-      this.genres = res['genres'];
-      this.details = res;
-    });
-  }
-
+  searchBar = new FormGroup({
+    searchStr: new FormControl(null, [Validators.required]),
+  });
   searchMovies() {
+    this.loading = true;
     this.apiService.searchMovies(this.searchStr).subscribe((res) => {
       this.searchRes = res['results'];
       if (this.searchRes.length === 0) {
         this.searchEmpty = true;
+        this.loading = false;
       } else {
         this.searchEmpty = false;
+        this.loading = false;
       }
     });
   }

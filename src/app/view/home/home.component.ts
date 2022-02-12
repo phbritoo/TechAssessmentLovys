@@ -12,6 +12,7 @@ export class HomeComponent implements OnInit {
   currentMovies?: Movie[];
   page: any;
   totalPages: any;
+  public loading = false;
 
   constructor(
     private apiService: MoviesApiService,
@@ -23,10 +24,12 @@ export class HomeComponent implements OnInit {
     this.getMovies(this.page);
   }
   getMovies(page: number): void {
+    this.loading = true;
     this.apiService.getPopular(page).subscribe((response: any) => {
       this.currentMovies = response['results'];
       this.page = response['page'];
       this.totalPages = response['total_pages'];
+      this.loading = false;
     });
   }
 }

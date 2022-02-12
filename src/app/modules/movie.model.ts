@@ -13,4 +13,5 @@ export interface Movie {
   media_type?: any;
   first_air_date?: any;
   known_for_department?: any;
+  isLoadingResults?: boolean;
 }

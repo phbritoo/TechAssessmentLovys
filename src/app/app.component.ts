@@ -12,6 +12,7 @@ export class AppComponent implements OnInit {
   title = 'TechAssessmentLovys';
   isSignedIn = false;
   closedModal = false;
+  public loading = false;
 
   constructor(
     private route: ActivatedRoute,
