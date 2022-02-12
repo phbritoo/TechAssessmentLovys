@@ -14,6 +14,21 @@ export class FirebaseService {
       .then((res: any) => {
         (this.isLoggedIn = true),
           localStorage.setItem('user', JSON.stringify(res.user));
+      })
+      .catch(function (error) {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        if (
+          errorCode == 'auth/user-not-found' ||
+          errorCode == 'auth/invalid-email' ||
+          errorCode == 'auth/wrong-password' ||
+          errorCode == 'auth/credential-already-in-use'
+        ) {
+          alert('E-mail or password invalid!');
+        } else {
+          alert(errorMessage);
+        }
+        console.log(error);
       });
   }
 
@@ -23,6 +38,17 @@ export class FirebaseService {
       .then((res: any) => {
         (this.isLoggedIn = true),
           localStorage.setItem('user', JSON.stringify(res.user));
+      })
+      .catch((error) => {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        if (errorCode == 'auth/email-already-in-use') {
+          alert('E-mail already exists');
+          this.isLoggedIn = false;
+        } else {
+          alert(errorMessage);
+        }
+        console.log(error);
       });
   }
 

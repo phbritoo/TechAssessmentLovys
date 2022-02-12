@@ -13,6 +13,7 @@ import { MoviesApiService } from 'src/app/service/movies-api.service';
 export class GenresListComponent implements OnInit {
   title: string | undefined;
   public id: number | undefined;
+  public loading = false;
 
   currentMovies?: Movie[];
   page: any;
@@ -32,10 +33,12 @@ export class GenresListComponent implements OnInit {
   }
 
   getMoviesGenre(id: any, page: number) {
+    this.loading = true;
     this.apiService.getGenreById(id, page).subscribe((res: any) => {
       this.currentMovies = res['results'];
       this.page = res['page'];
       this.totalPages = res['total_pages'];
+      this.loading = false;
     });
   }
 }

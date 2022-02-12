@@ -9,6 +9,8 @@ import { MoviesApiService } from 'src/app/service/movies-api.service';
 })
 export class GenresComponent implements OnInit {
   genreslist: any;
+  public loading = false;
+
   constructor(private apiService: MoviesApiService) {}
 
   ngOnInit(): void {
@@ -16,11 +18,12 @@ export class GenresComponent implements OnInit {
   }
 
   getGenres() {
+    this.loading = true;
     this.apiService
       .getGenres()
-      .pipe(delay(1000))
       .subscribe((res: any) => {
         this.genreslist = res.genres;
+        this.loading = false;
       });
   }
 }

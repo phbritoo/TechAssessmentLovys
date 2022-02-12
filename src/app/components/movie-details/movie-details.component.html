@@ -24,48 +24,24 @@
             <div class="modal-body">
                 <p>{{currentDetails.overview}}</p>
                 <hr>
-                
-                <p class="year"><span>{{currentDetails.release_date | date: 'yyyy'}}</span>
                 <div class="d-flex justify-content-center">
                     <span class="badge rounded-pill bg-dark chip"
                         *ngFor="let genre of currentGenres">{{genre.name}}</span>
                 </div>
+                <hr>
 
-                <ul class="nolist">
-                    <li>
-                        <div class="label">
-                            Released
-                        </div>
-                        <div class="value">
-                            {{ currentDetails.release_date | date }}
-                        </div>
-                    </li>
-                    <li>
-                        <div class="label">
-                            Runtime
-                        </div>
-                        <div class="value">
-                            {{ currentDetails.runtime | date  }}
-                        </div>
-                    </li>
-                    <li *ngIf="currentDetails.budget">
-                        <div class="label">
-                            Budget
-                        </div>
-                        <div class="value">
-                            {{ currentDetails.budget | currency }}
-                        </div>
-                    </li>
-                    <li *ngIf="currentDetails.revenue">
-                        <div class="label">
-                            Revenue
-                        </div>
-                        <div class="value">
-                            {{ currentDetails.revenue | currency }}
-                        </div>
-                    </li>
-                    </ul>
-
+                <div class="text-center my-1">
+                    <b> Released</b> {{ currentDetails.release_date | date: 'yyyy' }}
+                </div>
+                <div class="text-center my-1">
+                    <b> Runtime</b> {{ currentDetails.runtime}} minutes
+                </div>
+                <div class="text-center my-1" *ngIf="currentDetails.budget">
+                    <b> Budget</b> {{ currentDetails.budget | currency }}
+                </div>
+                <div class="text-center my-1" *ngIf="currentDetails.revenue">
+                    <b> Revenue</b> {{ currentDetails.revenue | currency }}
+                </div>
             </div>
         </div>
     </div>
